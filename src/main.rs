@@ -53,9 +53,16 @@ fn parse_key_val(s: &str) -> Result<(String, String), String> {
 
 /// Get the caddy-dev config directory (~/.config/caddy-dev)
 fn get_config_dir() -> PathBuf {
-    config_dir()
-        .unwrap_or_else(|| PathBuf::from("/home/.config"))
-        .join("caddy-dev")
+    // Use XDG-compliant ~/.config/caddy-dev for cross-platform consistency
+    // This overrides the platform-specific config_dir() to ensure consistent behavior
+    if let Some(home_dir) = dirs::home_dir() {
+        home_dir.join(".config").join("caddy-dev")
+    } else {
+        // Fallback to platform-specific config directory if home not found
+        config_dir()
+            .unwrap_or_else(|| PathBuf::from("/home/.config"))
+            .join("caddy-dev")
+    }
 }
 
 /// Get the main Caddyfile path in config directory
