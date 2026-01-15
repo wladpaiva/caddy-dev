@@ -1,8 +1,8 @@
 [package]
-name = "caddy-gen"
+name = "caddy-dev"
 version = "0.2.0"
 edition = "2024"
-description = "Generate and manage Caddyfile.dev from templates with multi-folder support"
+description = "Local Caddy development tool for generating and managing Caddyfile.dev from templates"
 authors = ["Wlad Paiva <me@wladpaiva.xyz>"]
 license = "MIT"
 
